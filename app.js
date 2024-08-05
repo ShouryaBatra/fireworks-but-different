@@ -4,6 +4,7 @@ var ctx = c.getContext("2d");
 var cwidth, cheight;
 var shells = [];
 var pass = [];
+var activeFireworks = 0;
 
 var colors = [
   "#FF5252",
@@ -48,6 +49,7 @@ function newShell() {
   shell.color = colors[Math.floor(Math.random() * colors.length)];
 
   shells.push(shell);
+  activeFireworks = activeFireworks + 1;
 }
 
 function newPass(shell) {
@@ -85,9 +87,10 @@ function Run() {
   ctx.fillStyle = "rgba(0,0,0,0.25)";
   ctx.fillRect(0, 0, cwidth, cheight);
 
-  if (shells.length < 10 && Math.random() > 0.96) {
+  if (activeFireworks < 5 && shells.length < 10) {
     newShell();
   }
+  
 
   for (let ix in shells) {
     var shell = shells[ix];
