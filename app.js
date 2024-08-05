@@ -25,7 +25,6 @@ var colors = [
   "#FF6E40",
 ];
 
-
 window.onresize = function () {
   reset();
 };
@@ -90,26 +89,19 @@ function Run() {
   if (activeFireworks < 5 && shells.length < 10) {
     newShell();
   }
-  
 
   for (let ix in shells) {
     var shell = shells[ix];
 
     ctx.beginPath();
-    ctx.arc(
-      shell.x * cwidth,
-      shell.y * cheight,
-      shell.size,
-      0,
-      2 * Math.PI
-    );
+    ctx.arc(shell.x * cwidth, shell.y * cheight, shell.size, 0, 2 * Math.PI);
     ctx.fillStyle = shell.color;
     ctx.fill();
 
     shell.x -= shell.xoff;
     shell.y -= shell.yoff;
     shell.xoff -= shell.xoff * dt * 0.001;
-    shell.yoff -= ((shell.yoff + 0.2) * dt * 0.00005);
+    shell.yoff -= (shell.yoff + 0.2) * dt * 0.00005;
 
     if (shell.yoff < -0.005) {
       newPass(shell);
@@ -118,7 +110,6 @@ function Run() {
   }
 
   for (let ix in pass) {
-
     var pas = pass[ix];
 
     ctx.beginPath();
@@ -128,12 +119,12 @@ function Run() {
 
     pas.x -= pas.xoff;
     pas.y -= pas.yoff;
-    pas.xoff -= (pas.xoff * dt * 0.001);
-    pas.yoff -= ((pas.yoff + 5) * dt * 0.0005);
-    pas.size -= (dt * 0.002 * Math.random())
+    pas.xoff -= pas.xoff * dt * 0.001;
+    pas.yoff -= (pas.yoff + 5) * dt * 0.0005;
+    pas.size -= dt * 0.002 * Math.random();
 
-    if ((pas.y > cheight)  || (pas.y < -50) || (pas.size <= 0)) {
-        pass.splice(ix, 1);
+    if (pas.y > cheight || pas.y < -50 || pas.size <= 0) {
+      pass.splice(ix, 1);
     }
   }
 
